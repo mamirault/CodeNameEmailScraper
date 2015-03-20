@@ -60,14 +60,14 @@ public class EmailScraper {
 
 	private void scrapePage(String page) {
 		try {
-			Document doc = Jsoup.connect(page).get();
+			Document doc = Jsoup.connect(page).followRedirects(true).get();
 
 			for (Element element : doc.getAllElements()) {
 				scrapeLinks(element);
 				scrapeEmails(element);
 			}
 		} catch (IOException e) {
-			System.out.println("Tried to load " + page + " but there was a problem.");
+			System.out.println("Tried to load " + page + " but there was a problem. " + e.getMessage());
 		}
 	}
 
